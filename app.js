@@ -1,6 +1,8 @@
 'use strict';
 import express from 'express';
 import * as React from 'express-react-views';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import path, { dirname } from 'path';
 import serveFavicon from 'serve-favicon';
 import globalMiddlewares from './middlewares/global.js';
@@ -12,11 +14,17 @@ import logoutRoute from './routes/logoutRoute.js';
 import profileRoute from './routes/profileRoute.js';
 import errorRoute from './routes/errorRoute.js';
 import adminApp from './admin/adminApp.js';
+import mobileApi from './mobile/mobile.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const staticFolder = new URL('./static/', import.meta.url).pathname;
 
 const app = express();
+app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(mobileApi);
 
 app.use(globalMiddlewares);
 

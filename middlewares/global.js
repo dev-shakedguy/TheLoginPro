@@ -1,7 +1,5 @@
 import express from 'express';
-import cookieParser from 'cookie-parser';
 import csurf from 'csurf';
-import bodyParser from 'body-parser';
 import { v4 as uuidv4 } from 'uuid';
 import session from 'express-session';
 import { Firestore } from '../utils/firebaseService.js';
@@ -10,8 +8,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 
 const globalMiddlewares = express();
-globalMiddlewares.use(express.json());
-globalMiddlewares.use(cookieParser());
+
 globalMiddlewares.use(csurf({ cookie: true }));
 globalMiddlewares.use(bodyParser.json());
 globalMiddlewares.use(bodyParser.urlencoded({ extended: true }));
